@@ -1,0 +1,226 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcome Tuan Lann</title>
+
+<style>
+* {
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body {
+  min-height:100vh;
+  background:#000;
+  color:#fff;
+  font-family:Arial,sans-serif;
+  overflow:hidden;
+}
+
+/* BLACKHOLE VIDEO */
+.video-bg {
+  position:fixed;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  z-index:-3;
+}
+
+.overlay {
+  position:fixed;
+  inset:0;
+  background:linear-gradient(
+    to bottom,
+    rgba(0,0,0,.55),
+    rgba(0,0,0,.35),
+    rgba(0,0,0,.7)
+  );
+  z-index:-2;
+}
+
+/* STARS */
+.stars {
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  background-image:
+    radial-gradient(1px 1px at 10% 20%,#fff,transparent),
+    radial-gradient(1px 1px at 30% 70%,#aaa,transparent),
+    radial-gradient(2px 2px at 70% 30%,#fff,transparent),
+    radial-gradient(1px 1px at 85% 80%,#aaa,transparent),
+    radial-gradient(1px 1px at 50% 50%,#fff,transparent),
+    radial-gradient(2px 2px at 90% 15%,#fff,transparent),
+    radial-gradient(1px 1px at 20% 90%,#aaa,transparent);
+  background-size:350px 350px;
+  opacity:.65;
+  animation:drift 80s linear infinite;
+  z-index:-1;
+}
+
+@keyframes drift {
+  from { transform:translateY(0); }
+  to { transform:translateY(-350px); }
+}
+
+@keyframes blink {
+  0%,100% { opacity:.65; }
+  50% { opacity:1; }
+}
+
+/* NAVBAR */
+nav {
+  position:relative;
+  z-index:2;
+  padding:30px 7%;
+  display:flex;
+  justify-content:space-between;
+  color:#777b8b;
+  font-size:11px;
+  letter-spacing:3px;
+}
+
+.logo {
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.logo:hover {
+  letter-spacing:5px;
+  color:#8995b8;
+}
+
+/* MAIN */
+main {
+  position:relative;
+  z-index:2;
+  height:75vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+}
+
+.small {
+  color:#aaa;
+  font-size:10px;
+  letter-spacing:5px;
+  margin-bottom:25px;
+}
+
+h1 {
+  font-size:clamp(42px,8vw,85px);
+  font-weight:400;
+  letter-spacing:-4px;
+  line-height:1.1;
+  text-shadow:0 0 30px rgba(0,0,0,.7);
+}
+
+h1 span {
+  color:#8995b8;
+}
+
+.description {
+  margin-top:25px;
+  color:#aaa;
+  font-size:13px;
+  letter-spacing:1px;
+  min-height:20px;
+}
+
+.line {
+  width:70px;
+  height:1px;
+  background:#8995b8;
+  margin-top:40px;
+  animation:blink 2s infinite;
+}
+
+/* FOOTER */
+footer {
+  position:absolute;
+  bottom:25px;
+  left:7%;
+  right:7%;
+  display:flex;
+  justify-content:space-between;
+  color:#999;
+  font-size:10px;
+  letter-spacing:2px;
+}
+
+/* MOBILE */
+@media(max-width:600px) {
+  nav { padding:25px 6%; }
+  footer { left:6%; right:6%; }
+  h1 { letter-spacing:-2px; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- VIDEO BLACKHOLE -->
+<video class="video-bg" autoplay muted loop playsinline>
+  <source src="blackhole.mp4" type="video/mp4">
+</video>
+
+<div class="overlay"></div>
+<div class="stars" id="stars"></div>
+
+<nav>
+  <div class="logo">Welcome.</div>
+  <div>Unknown Void</div>
+</nav>
+
+<main>
+  <div class="small">WELCOME TO EVENT HORIZON</div>
+
+  <h1>
+    Welcome<br>
+    <span>...</span> 
+  </h1>
+
+  <p class="description" id="type"></p>
+
+  <div class="line"></div>
+</main>
+
+<footer>
+  <span>© 2026 LANN</span>
+  <span>LOST IN UNKNOWN.</span>
+</footer>
+
+<script>
+const text = "Somewhere between silence and infinity.";
+let i = 0;
+
+function typing() {
+  if(i < text.length) {
+    document.getElementById("type").textContent += text.charAt(i);
+    i++;
+    setTimeout(typing,50);
+  }
+}
+
+typing();
+
+// PARALLAX STARS
+document.addEventListener("mousemove", e => {
+  const x = (e.clientX / window.innerWidth - 0.5) * 20;
+  const y = (e.clientY / window.innerHeight - 0.5) * 20;
+
+  document.getElementById("stars").style.transform =
+    `translate(${x}px, ${y}px)`;
+});
+</script>
+
+</body>
+</html>
